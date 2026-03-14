@@ -1,6 +1,11 @@
 """
 organisateur de fichiers CSV par l'entremise d'un tableau lisible par humain. 
 """
+            #file.write("| test | test | test |\n")
+            #file.write("|:---: |:----:|:---: |\n")
+            #file.write("| test | test | test |\n")
+            #file.write("| test | test | test |\n")
+            #file.write("| test | test | test |\n")
 
 # imports
 import csv
@@ -24,14 +29,16 @@ def write_markdown_file(filename):
         with open(filename, "w", encoding="utf-8") as file:
             file.write("| test | test | test |\n")
             file.write("|:---: |:----:|:---: |\n")
-            file.write("| test | test | test |\n")
-            file.write("| test | test | test |\n")
-            file.write("| test | test | test |\n")
+            for row in read_csv("test_read.csv"):
+                if row == []:
+                    continue
+                else:
+                    written = " | ".join(row)
+                    file.write("| " + written + " |\n")
         print(f"Markdown file '{filename}' written sucessfully.")
     except OSError as e:
         print(f"Error writing file: {e}")
 
 
 # lecture test
-read_csv("test_read.csv")
 write_markdown_file("test_table.md")
