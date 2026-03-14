@@ -19,7 +19,7 @@ def read_csv(filename):
             reader = csv.reader(f)
             for row in reader:
                 rows.append(row)
-        print(f"CSV file '{filename}' written sucessfully.")
+        print(f"CSV file '{filename}' read sucessfully.")
         return rows
     except OSError as e:
         print(f"Error reading file: {e}")
@@ -27,8 +27,14 @@ def read_csv(filename):
 def write_markdown_file(filename):
     try:
         with open(filename, "w", encoding="utf-8") as file:
-            file.write("| test | test | test |\n")
-            file.write("|:---: |:----:|:---: |\n")
+            max_len = 0
+            for length in read_csv("test_read.csv"):
+                if len(length) > max_len:
+                    max_len = len(length)
+                else:
+                    continue
+            file.write("| test " * max_len + "|\n")
+            file.write("|:---: " * max_len + "|\n")
             for row in read_csv("test_read.csv"):
                 if row == []:
                     continue
