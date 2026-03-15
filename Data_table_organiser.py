@@ -3,44 +3,12 @@ organisateur de fichiers CSV par l'entremise d'un tableau lisible par humain.
 """
 
 # imports
-import csv
 from rich import print
+import pandas as pd
 
-# fonctions
-
-def read_csv(filename):
-    try:
-        rows = []
-        with open(filename, newline="") as f:
-            reader = csv.reader(f)
-            for row in reader:
-                rows.append(row)
-        print(f"[italic blue]CSV file '[/]{filename}[italic blue]' read sucessfully.")
-        return rows
-    except OSError as e:
-        print(f"[italic blue]Error reading file:[/] {e}")
-
-def write_markdown_file(filename):
-    try:
-        with open(filename, "w", encoding="utf-8") as file:
-            max_len = 0
-            for length in read_csv("test_read.csv"):
-                if len(length) > max_len:
-                    max_len = len(length)
-                else:
-                    continue
-            file.write("|" * max_len + "|\n")
-            file.write("|:-:" * max_len + "|\n")
-            for row in read_csv("test_read.csv"):
-                if row == []:
-                    continue
-                else:
-                    written = " |".join(row)
-                    file.write("| " + written + " |\n")
-        print(f"[italic blue]Markdown file '[/]{filename}[italic blue]' written sucessfully.")
-    except OSError as e:
-        print(f"[italic blue]Error writing file:[/] {e}")
-
-
-# lecture test
-write_markdown_file("test_table.md")
+# code
+try:
+    df = pd.read_csv('test_read.csv', on_bad_lines='skip')
+    df.to_excel('test_write.xlsx', index=False)
+except Exception as e:
+    print(f"Error: {e}")
