@@ -4,6 +4,7 @@ organisateur de fichiers CSV par l'entremise d'un tableau lisible par humain.
 
 # imports
 import csv
+from rich import print
 
 # fonctions
 
@@ -14,10 +15,10 @@ def read_csv(filename):
             reader = csv.reader(f)
             for row in reader:
                 rows.append(row)
-        print(f"CSV file '{filename}' read sucessfully.")
+        print(f"[italic blue]CSV file '[/]{filename}[italic blue]' read sucessfully.")
         return rows
     except OSError as e:
-        print(f"Error reading file: {e}")
+        print(f"[italic blue]Error reading file:[/] {e}")
 
 def write_markdown_file(filename):
     try:
@@ -36,9 +37,9 @@ def write_markdown_file(filename):
                 else:
                     written = " |".join(row)
                     file.write("| " + written + " |\n")
-        print(f"Markdown file '{filename}' written sucessfully.")
+        print(f"[italic blue]Markdown file '[/]{filename}[italic blue]' written sucessfully.")
     except OSError as e:
-        print(f"Error writing file: {e}")
+        print(f"[italic blue]Error writing file:[/] {e}")
 
 
 # lecture test
