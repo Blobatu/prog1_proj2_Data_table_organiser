@@ -15,6 +15,10 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 # fonctions
 
 def csv_to_xlsx(csv_file, xlsx_file):
+    """
+    cette fonction lit un fichier csv et le convertie en fichier xlsx.
+    elle gere au passage les erreurs de lecture et d'ecriture avec des messages de status
+    """
     try:
         csv_file = pd.read_csv(csv_file, on_bad_lines='skip')
         print("[green]\n CSV file read sucessfully")
@@ -28,6 +32,10 @@ def csv_to_xlsx(csv_file, xlsx_file):
         print(f"[red]CSV read Error: {e}")
 
 def xlsx_to_csv(xlsx_file, csv_file):
+    """
+    cette fonction lit un fichier xlsx et le convertie en fichier csv.
+    elle gere au passage les erreurs de lecture et d'ecriture avec des messages de status
+    """
     try:
         xlsx_file = pd.read_excel(xlsx_file)
         print("[green] xlsx file read sucessfully")
