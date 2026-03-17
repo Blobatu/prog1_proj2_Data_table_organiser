@@ -43,6 +43,7 @@ def xlsx_to_csv(xlsx_file, csv_file):
 # config
 
 YELLOW = "\033[93m"
+RED = "\033[91m"
 
 file_mem = {
     'csv_input' : 'input_csv_file_here/*.csv' ,
@@ -64,10 +65,10 @@ if csv_files:
         file_mem['csv_input'] = file_path
         if csv_to_xlsx(file_mem['csv_input'], file_mem['xlsx_file']) == "no error":
             subprocess.run(["start", "excel", file_mem['xlsx_file']], shell=True)
-            go = input(f"\n{YELLOW}Press Enter when you are done editing the .xlsx file to convert it back to .csv: \n")
+            go = input(f"\n{YELLOW}Press Enter {RED}after closing Excel {YELLOW}when you are done editing the .xlsx file and are ready convert it back to .csv: \n")
             file_mem['csv_output'] = os.path.join(output_dir, os.path.basename(file_path).replace(".csv", "_organised.csv"))
             xlsx_to_csv(file_mem['xlsx_file'], file_mem['csv_output'])
-            subprocess.run(["start", "notepad", file_mem['csv_output']], shell=True)
+            #subprocess.run(["start", "notepad", file_mem['csv_output']], shell=True)       # debug to see the thing actually works
         else:
             print()
 else:
