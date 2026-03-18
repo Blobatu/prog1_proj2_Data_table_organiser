@@ -7,10 +7,7 @@ from rich import print
 import pandas as pd
 import subprocess 
 import os
-import glob
-
-# Get the directory of the script
-script_dir = os.path.dirname(os.path.abspath(__file__))
+from File_manager import file_mem, csv_files, output_dir
 
 # fonctions
 
@@ -48,25 +45,13 @@ def xlsx_to_csv(xlsx_file, csv_file):
         print(f"[red]xlsx read Error: {e}")
 
 
-# config
+# couleurs pour input()
 
 YELLOW = "\033[93m"
 RED = "\033[91m"
 
-file_mem = {
-    'csv_input' : 'input_csv_file_here/*.csv' ,
-    'xlsx_file' : os.path.join(script_dir, 'csv_file_organiser.xlsx') ,
-    'csv_output' : 'output_organised_csv_here/*.csv' ,
-}
-
 
 # code
-
-folder_path = os.path.join(script_dir, "input_csv_file_here")
-output_dir = os.path.join(script_dir, "output_organised_csv_here")
-os.makedirs(output_dir, exist_ok=True)
-csv_files = glob.glob(os.path.join(folder_path, "*.csv"))
-
 
 if csv_files:
     for file_path in csv_files:
