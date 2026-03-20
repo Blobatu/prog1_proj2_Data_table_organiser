@@ -20,7 +20,7 @@ def csv_to_xlsx(csv_file, xlsx_file):
         csv_file = pd.read_csv(csv_file, on_bad_lines='skip')
         print("[green]\n CSV file read sucessfully")
         try:
-            csv_file.to_excel(xlsx_file, index=False)
+            csv_file.to_excel(xlsx_file, index=False)   
             print("[green] xlsx file written sucessfully")
             return "no error"
         except Exception as e:
