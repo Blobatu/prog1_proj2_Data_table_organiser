@@ -5,9 +5,11 @@ organisateur de fichiers CSV par l'entremise d'un tableau lisible par humain.
 # imports
 from rich import print
 import pandas as pd
-import subprocess 
+import subprocess
+import csv 
 import os
-from File_manager import file_mem, csv_files, output_dir
+from File_manager import file_mem, csv_files, output_dir_csv, output_dir_md
+import time
 
 # fonctions
 
@@ -16,9 +18,10 @@ def csv_to_xlsx(csv_file, xlsx_file):
     cette fonction lit un fichier csv et le convertie en fichier xlsx.
     elle gere au passage les erreurs de lecture et d'ecriture avec des messages de status
     """
-    try:
+    try:    
         csv_file = pd.read_csv(csv_file, on_bad_lines='skip')
         print("[green]\n CSV file read sucessfully")
+        # print(csv_file)       debug, pour voire le fichier lu
         try:
             csv_file.to_excel(xlsx_file, index=False)   
             print("[green] xlsx file written sucessfully")
@@ -44,11 +47,42 @@ def xlsx_to_csv(xlsx_file, csv_file):
     except Exception as e:
         print(f"[red]xlsx read Error: {e}")
 
+def read_csv_as_list(filename):
+    try:
+        rows = []
+        with open(filename, newline="") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                rows.append(row)
+        print(f"[italic blue]CSV file '[/]{filename}[italic blue]' read sucessfully.")
+        return rows
+    except OSError as e:
+        print(f"[red]Error reading file:[/] {e}")
+
+def write_markdown_file(csv_input_file, md_output_file):
+    try:
+        rows = read_csv_as_list(csv_input_file)
+        if not rows:
+            print(f"[italic blue]No rows found in CSV file '{csv_input_file}', skipping markdown conversion.")
+            return
+        max_len = max(len(row) for row in rows)
+        with open(md_output_file, "w", encoding="utf-8") as file:
+            file.write("|" * max_len + "|\n")
+            file.write("|:-:" * max_len + "|\n")
+            for row in rows:
+                if not row:
+                    continue
+                written = " |".join(str(cell) for cell in row)
+                file.write("| " + written + " |\n")
+        print(f"[italic blue]Markdown file '[/]{md_output_file}[italic blue]' written sucessfully.")
+    except OSError as e:
+        print(f"[red]Error writing file:[/] {e}")
+
 
 # couleurs pour input()
 
 YELLOW = "\033[93m"
-RED = "\033[91m"
+#RED = "\033[91m"
 
 
 # code
@@ -58,10 +92,20 @@ if csv_files:
         file_mem['csv_input'] = file_path
         if csv_to_xlsx(file_mem['csv_input'], file_mem['xlsx_file']) == "no error":
             subprocess.run(["start", "excel", file_mem['xlsx_file']], shell=True)
-            go = input(f"\n{YELLOW}Press Enter {RED}after closing Excel {YELLOW}when you are done editing the .xlsx file and are ready convert it back to .csv: \n")
-            file_mem['csv_output'] = os.path.join(output_dir, os.path.basename(file_path).replace(".csv", "_organised.csv"))
+            go = input(f"\n{YELLOW}Press Enter when you are done editing the .xlsx file and are ready convert it back to .csv: ")
+            subprocess.run(["taskkill", "/F", "/IM", "EXCEL.EXE"], shell=True, check=False)
+            time.sleep(3)
+            file_mem['csv_output'] = os.path.join(output_dir_csv, os.path.basename(file_path).replace(".csv", "_organised.csv"))
             xlsx_to_csv(file_mem['xlsx_file'], file_mem['csv_output'])
-            #subprocess.run(["start", "notepad", file_mem['csv_output']], shell=True)       # debug to see the thing actually works
+            #subprocess.run(["start", "notepad", file_mem['csv_output']], shell=True)       # debug pour voir si le fichier de sortie est bien écrit
+            to_md = input(f"\n{YELLOW}Do you want to convert the organised .csv file to markdown format? (y/n): ").lower()
+            if to_md == "y":
+                file_mem['md_output'] = os.path.join(output_dir_md, os.path.basename(file_path).replace(".csv", "_organised.md"))
+                write_markdown_file(file_mem['csv_output'], file_mem['md_output'])
+            elif to_md == "n":
+                continue
+            else:
+                print()
         else:
             print()
 else:
