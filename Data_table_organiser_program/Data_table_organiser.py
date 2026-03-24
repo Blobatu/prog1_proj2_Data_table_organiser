@@ -94,7 +94,6 @@ if csv_files:
             subprocess.run(["start", "excel", file_mem['xlsx_file']], shell=True)
             go = input(f"\n{YELLOW}Press Enter when you are done editing the .xlsx file and are ready convert it back to .csv: ")
             subprocess.run(["taskkill", "/F", "/IM", "EXCEL.EXE"], shell=True, check=False)
-            time.sleep(3)
             file_mem['csv_output'] = os.path.join(output_dir_csv, os.path.basename(file_path).replace(".csv", "_organised.csv"))
             xlsx_to_csv(file_mem['xlsx_file'], file_mem['csv_output'])
             #subprocess.run(["start", "notepad", file_mem['csv_output']], shell=True)       # debug pour voir si le fichier de sortie est bien écrit
@@ -106,6 +105,7 @@ if csv_files:
                 continue
             else:
                 print()
+            time.sleep(3)
         else:
             print()
 else:
