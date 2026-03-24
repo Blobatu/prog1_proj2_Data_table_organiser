@@ -21,7 +21,6 @@ def csv_to_xlsx(csv_file, xlsx_file):
     try:    
         csv_file = pd.read_csv(csv_file, on_bad_lines='skip')
         print("[green]\n CSV file read sucessfully")
-        # print(csv_file)       debug, pour voire le fichier lu
         try:
             csv_file.to_excel(xlsx_file, index=False)   
             print("[green] xlsx file written sucessfully")
@@ -48,6 +47,9 @@ def xlsx_to_csv(xlsx_file, csv_file):
         print(f"[red]xlsx read Error: {e}")
 
 def read_csv_as_list(filename):
+    """
+    cette fonction crée une liste contenant le contenue d'un fichier csv.
+    """
     try:
         rows = []
         with open(filename, newline="") as f:
@@ -60,6 +62,9 @@ def read_csv_as_list(filename):
         print(f"[red]Error reading file:[/] {e}")
 
 def write_markdown_file(csv_input_file, md_output_file):
+    """
+    cette fonction lit un fichier csv et le convertie en fichier markdown.
+    """
     try:
         rows = read_csv_as_list(csv_input_file)
         if not rows:
@@ -82,31 +87,33 @@ def write_markdown_file(csv_input_file, md_output_file):
 # couleurs pour input()
 
 YELLOW = "\033[93m"
-#RED = "\033[91m"
-
+GREEN = "\033[92m"
 
 # code
 
 if csv_files:
     for file_path in csv_files:
         file_mem['csv_input'] = file_path
-        if csv_to_xlsx(file_mem['csv_input'], file_mem['xlsx_file']) == "no error":
-            subprocess.run(["start", "excel", file_mem['xlsx_file']], shell=True)
-            go = input(f"\n{YELLOW}Press Enter when you are done editing the .xlsx file and are ready convert it back to .csv: ")
-            subprocess.run(["taskkill", "/F", "/IM", "EXCEL.EXE"], shell=True, check=False)
-            file_mem['csv_output'] = os.path.join(output_dir_csv, os.path.basename(file_path).replace(".csv", "_organised.csv"))
-            xlsx_to_csv(file_mem['xlsx_file'], file_mem['csv_output'])
-            #subprocess.run(["start", "notepad", file_mem['csv_output']], shell=True)       # debug pour voir si le fichier de sortie est bien écrit
-            to_md = input(f"\n{YELLOW}Do you want to convert the organised .csv file to markdown format? (y/n): ").lower()
-            if to_md == "y":
-                file_mem['md_output'] = os.path.join(output_dir_md, os.path.basename(file_path).replace(".csv", "_organised.md"))
-                write_markdown_file(file_mem['csv_output'], file_mem['md_output'])
-            elif to_md == "n":
-                continue
+        read_current_file = input(f"\n{YELLOW}The file {GREEN}{file_path}{YELLOW} is about to be read, do you wish to read it? (y/n): ").lower()
+        if read_current_file == "y":
+            if csv_to_xlsx(file_mem['csv_input'], file_mem['xlsx_file']) == "no error":
+                subprocess.run(["start", "excel", file_mem['xlsx_file']], shell=True)
+                go = input(f"\n{YELLOW}Press Enter when you are done editing the .xlsx file and are ready convert it back to .csv: ")
+                subprocess.run(["taskkill", "/F", "/IM", "EXCEL.EXE"], shell=True, check=False)
+                file_mem['csv_output'] = os.path.join(output_dir_csv, os.path.basename(file_path).replace(".csv", "_organised.csv"))
+                xlsx_to_csv(file_mem['xlsx_file'], file_mem['csv_output'])
+                to_md = input(f"\n{YELLOW}Do you want to convert the organised .csv file to markdown format? (y/n): ").lower()
+                if to_md == "y":
+                    file_mem['md_output'] = os.path.join(output_dir_md, os.path.basename(file_path).replace(".csv", "_organised.md"))
+                    write_markdown_file(file_mem['csv_output'], file_mem['md_output'])
+                elif to_md == "n":
+                    continue
+                else:
+                    print()
+                time.sleep(3)
             else:
                 print()
-            time.sleep(3)
         else:
-            print()
+            continue
 else:
     print("No .csv files found.")
