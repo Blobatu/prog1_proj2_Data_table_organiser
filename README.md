@@ -10,7 +10,7 @@ si vous le voulez, il est possible en même temps de recevoir le fichier en vers
 
 ## Structures de donnée utilisés
 
-- bibliothèques
+- dictionnaires
 - dataframe
 - liste
 
