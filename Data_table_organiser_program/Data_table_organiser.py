@@ -94,7 +94,7 @@ GREEN = "\033[92m"
 if csv_files:
     for file_path in csv_files:
         file_mem['csv_input'] = file_path
-        read_current_file = input(f"\n{YELLOW}The file {GREEN}{file_path}{YELLOW} is about to be read, do you wish to read it? (y/n): ").lower()
+        read_current_file = input(f"\n{YELLOW}The file {GREEN}{os.path.basename(file_path)}{YELLOW} is about to be read, do you wish to read it? (y/n): ").lower()
         if read_current_file == "y":
             if csv_to_xlsx(file_mem['csv_input'], file_mem['xlsx_file']) == "no error":
                 subprocess.run(["start", "excel", file_mem['xlsx_file']], shell=True)
