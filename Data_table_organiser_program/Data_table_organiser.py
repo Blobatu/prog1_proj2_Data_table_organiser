@@ -61,7 +61,7 @@ def read_csv_as_list(filename):
             reader = csv.reader(f)
             for row in reader:
                 rows.append(row)
-        print(f"[italic blue]CSV file '[/]{filename}[italic blue]' read sucessfully.")
+        print(f"[italic blue]CSV file '[/]{os.path.basename(filename)}[italic blue]' read sucessfully.")
         return rows
     except OSError as e:
         print(f"[red]Error reading file:[/] {e}")
@@ -74,7 +74,7 @@ def write_markdown_file(csv_input_file, md_output_file):
     try:
         rows = read_csv_as_list(csv_input_file)
         if not rows:
-            print(f"[italic blue]No rows found in CSV file '{csv_input_file}', skipping markdown conversion.")
+            print(f"[italic blue]No rows found in CSV file '{os.path.basename(csv_input_file)}', skipping markdown conversion.")
             return
         max_len = max(len(row) for row in rows)
         with open(md_output_file, "w", encoding="utf-8") as file:
@@ -85,7 +85,7 @@ def write_markdown_file(csv_input_file, md_output_file):
                     continue
                 written = " |".join(str(cell) for cell in row)
                 file.write("| " + written + " |\n")
-        print(f"[italic blue]Markdown file '[/]{md_output_file}[italic blue]' written sucessfully.")
+        print(f"[italic blue]Markdown file '[/]{os.path.basename(md_output_file)}[italic blue]' written sucessfully.")
     except OSError as e:
         print(f"[red]Error writing file:[/] {e}")
 
@@ -123,4 +123,4 @@ if csv_files:
         else:
             continue
 else:
-    print("No .csv files found.")
+    print("[red]No .csv files found.")
