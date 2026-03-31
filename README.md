@@ -8,13 +8,6 @@ lorsque vouz aurez terminé, suivez les instructions de nouveau, excell se ferme
 
 si vous le voulez, il est possible en même temps de recevoir le fichier en version tableau markdown, indiquez le simplement au programme lorsque demandé, le tableau markdown sera ensuite déposé dans le dossier output_organised_markdown_here 
 
-## Structures de donnée utilisés
-
-- dictionnaires
-- dataframe
-- liste
-
-
 ## Dépendances
 - pandas
 - rich
