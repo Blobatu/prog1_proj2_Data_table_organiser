@@ -1,6 +1,8 @@
 """
 organisateur de fichiers CSV par l'entremise d'un tableau lisible par humain. 
+Par Antoine Desjardins-Chapleau
 """
+
 
 # imports
 from rich import print
@@ -10,6 +12,7 @@ import csv
 import os
 from File_manager import file_mem, csv_files, output_dir_csv, output_dir_md
 import time
+
 
 # fonctions
 
@@ -30,6 +33,7 @@ def csv_to_xlsx(csv_file, xlsx_file):
     except Exception as e:
         print(f"[red]CSV read Error: {e}")
 
+
 def xlsx_to_csv(xlsx_file, csv_file):
     """
     cette fonction lit un fichier xlsx et le convertie en fichier csv.
@@ -46,6 +50,7 @@ def xlsx_to_csv(xlsx_file, csv_file):
     except Exception as e:
         print(f"[red]xlsx read Error: {e}")
 
+
 def read_csv_as_list(filename):
     """
     cette fonction crée une liste contenant le contenue d'un fichier csv.
@@ -60,6 +65,7 @@ def read_csv_as_list(filename):
         return rows
     except OSError as e:
         print(f"[red]Error reading file:[/] {e}")
+
 
 def write_markdown_file(csv_input_file, md_output_file):
     """
@@ -88,6 +94,7 @@ def write_markdown_file(csv_input_file, md_output_file):
 
 YELLOW = "\033[93m"
 GREEN = "\033[92m"
+
 
 # code
 
