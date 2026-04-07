@@ -8,19 +8,27 @@ lorsque vouz aurez terminé, suivez les instructions de nouveau, excell se ferme
 
 si vous le voulez, il est possible en même temps de recevoir le fichier en version tableau markdown, indiquez le simplement au programme lorsque demandé, le tableau markdown sera ensuite déposé dans le dossier output_organised_markdown_here 
 
-## Structures de donnée utilisés
+## entrée
+les fichiers à traiter doivent obligatoirement être déposés dans le dossier "input_csv_file_here".
+### important : les fichiers csv ne seront lus que si ils terminent par ".csv" exactement, pas de ".CSV" ou autres extentions étranges! 
 
-- dictionnaires
-- dataframe
-- liste
+## Sortie
+les fichiers organisés sont déposés dans le dossier "output_organised_csv_here".
 
+les fichiers markdown du csv organisé sont déposés dans le dossier "output_organised_markdown_here".
 
 ## Dépendances
-- pandas
-- rich
-- openpyxl (for xlsx read/write)
+- ### pandas
+  nécésaire afin de lire/écrire correctement les fichiers 
+- ### rich
+  pas réellement nécésaire mais cela ajoute de la couleur dans le terminal et rend le tout plus claire, sans cela, les messages seront moins lisibles car ils seront tous de la meme couleur et surtout, remplis de codes de changement de couleur et de style qui ne serait pas visible avec rich. Donc fortement recommendé
+- ### openpyxl (for xlsx read/write)
+  nécésaire afin de lire/écrire des xlsx
 
 #### Installation des dépendances
 ```
 pip install pandas rich openpyxl
 ```
+## crédit (acknowledgements)
+- code : Antoine D-C
+- avec l'aide de: Philippe Gauthier, Google.com, reddit.com et perplexity.ai
