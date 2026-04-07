@@ -1,6 +1,9 @@
 """
-ce programme est utilisé par le programme principal pour gérer les chemins de fichiers
+organisateur de fichiers CSV par l'entremise d'un tableau lisible par humain. 
+Par Antoine Desjardins-Chapleau
 """
+
+# imports
 
 import os
 import glob
