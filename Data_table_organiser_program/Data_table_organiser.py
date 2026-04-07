@@ -20,6 +20,8 @@ def csv_to_xlsx(csv_file, xlsx_file):
     """
     cette fonction lit un fichier csv et le convertie en fichier xlsx.
     elle gere au passage les erreurs de lecture et d'ecriture avec des messages de status
+    enrtées: les filepaths du csv d'entrée et du xlsx
+    sortie: le fichier converti du csv d'entrée dans le fichier xlsx
     """
     try:    
         csv_file = pd.read_csv(csv_file, on_bad_lines='skip')
@@ -38,6 +40,8 @@ def xlsx_to_csv(xlsx_file, csv_file):
     """
     cette fonction lit un fichier xlsx et le convertie en fichier csv.
     elle gere au passage les erreurs de lecture et d'ecriture avec des messages de status
+    enrtées: les filepaths du xlsx et du csv de sortie
+    sortie: le fichier converti du xlsx dans le fichier csv de sortie
     """
     try:
         xlsx_file = pd.read_excel(xlsx_file)
@@ -54,6 +58,8 @@ def xlsx_to_csv(xlsx_file, csv_file):
 def read_csv_as_list(filename):
     """
     cette fonction crée une liste contenant le contenue d'un fichier csv.
+    enrtées: les filepaths du csv
+    sortie: le fichier csv lu en liste de listes
     """
     try:
         rows = []
@@ -70,6 +76,8 @@ def read_csv_as_list(filename):
 def write_markdown_file(csv_input_file, md_output_file):
     """
     cette fonction lit un fichier csv et le convertie en fichier markdown.
+    enrtées: les filepaths du csv et du md
+    sortie: le fichier md 
     """
     try:
         rows = read_csv_as_list(csv_input_file)

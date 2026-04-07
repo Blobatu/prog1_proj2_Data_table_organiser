@@ -8,6 +8,15 @@ lorsque vouz aurez terminé, suivez les instructions de nouveau, excell se ferme
 
 si vous le voulez, il est possible en même temps de recevoir le fichier en version tableau markdown, indiquez le simplement au programme lorsque demandé, le tableau markdown sera ensuite déposé dans le dossier output_organised_markdown_here 
 
+## entrée
+les fichiers à traiter doivent obligatoirement être déposés dans le dossier "input_csv_file_here".
+### important : les fichiers csv ne seront lus que si ils terminent par ".csv" exactement, pas de ".CSV" ou autres extentions étranges! 
+
+## Sortie
+les fichiers organisés sont déposés dans le dossier "output_organised_csv_here".
+
+les fichiers markdown du csv organisé sont déposés dans le dossier "output_organised_markdown_here".
+
 ## Dépendances
 - ### pandas
   nécésaire afin de lire/écrire correctement les fichiers 
