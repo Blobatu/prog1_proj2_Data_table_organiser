@@ -12,6 +12,8 @@ si vous le voulez, il est possible en même temps de recevoir le fichier en vers
 les fichiers à traiter doivent obligatoirement être déposés dans le dossier "input_csv_file_here".
 ### important : les fichiers csv ne seront lus que si ils terminent par ".csv" exactement, pas de ".CSV" ou autres extentions étranges! 
 
+assurez vous aussi que les lignes de votre csv e treminent pas par un ",", cela sera lu comme une case vide et causera la création d'une cellule d'information aberrante. 
+
 ## Sortie
 les fichiers organisés sont déposés dans le dossier "output_organised_csv_here".
 
